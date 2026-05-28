@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BADA LAB – Bridging AI and Digital Architecture Laboratory</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,300&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --navy:#0a1628;--navy-mid:#132040;--navy-light:#1e3260;
+  --gold:#b8973a;--gold-light:#d4b45a;--gold-pale:#f5edd8;
+  --cream:#faf8f3;--text:#1a1a2e;--text-muted:#5a5a7a;
+  --border:#e0ddd5;--accent-teal:#1d6e6e;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Source Serif 4',Georgia,serif;background:var(--cream);color:var(--text);line-height:1.75}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(10,22,40,0.97);backdrop-filter:blur(8px);border-bottom:1px solid rgba(184,151,58,0.25)}
+.nav-inner{max-width:1100px;margin:0 auto;padding:0 2rem;display:flex;align-items:center;justify-content:space-between;height:64px}
+.nav-logo{display:flex;align-items:center;gap:12px;text-decoration:none}
+.logo-badge{width:48px;height:38px;background:var(--gold);border-radius:4px;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:13px;font-weight:700;color:var(--navy);letter-spacing:1px;line-height:1;text-align:center}
+.nav-logo-text{color:#fff;font-family:'Playfair Display',serif;font-size:16px;font-weight:600;letter-spacing:0.3px}
+.nav-links{display:flex;gap:0;list-style:none}
+.nav-links a{display:block;padding:0 18px;color:rgba(255,255,255,0.7);text-decoration:none;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;letter-spacing:0.8px;text-transform:uppercase;line-height:64px;transition:color 0.2s;border-bottom:2px solid transparent}
+.nav-links a:hover{color:var(--gold-light);border-bottom-color:var(--gold)}
+.nav-links a.active{color:var(--gold-light);border-bottom-color:var(--gold)}
+
+/* DROPDOWN */
+.nav-item{position:relative}
+.nav-item:hover .dropdown{opacity:1;visibility:visible;transform:translateX(-50%) translateY(0)}
+.nav-item > a{display:flex;align-items:center;gap:6px}
+.nav-item > a .arrow{display:inline-block;width:0;height:0;border-left:4px solid transparent;border-right:4px solid transparent;border-top:4px solid rgba(255,255,255,0.5);transition:transform 0.2s;margin-top:1px}
+.nav-item:hover > a .arrow{transform:rotate(180deg);border-top-color:var(--gold)}
+.dropdown{position:absolute;top:64px;left:50%;transform:translateX(-50%) translateY(-6px);background:rgba(10,22,40,0.98);border:1px solid rgba(184,151,58,0.25);border-top:2px solid var(--gold);border-radius:0 0 6px 6px;min-width:180px;opacity:0;visibility:hidden;transition:opacity 0.2s,transform 0.2s;backdrop-filter:blur(8px)}
+.dropdown a{display:flex;align-items:center;gap:10px;padding:11px 18px;color:rgba(255,255,255,0.65);text-decoration:none;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.8px;line-height:1;border-bottom:1px solid rgba(255,255,255,0.06);transition:background 0.15s,color 0.15s;white-space:nowrap}
+.dropdown a:last-child{border-bottom:none}
+.dropdown a:hover{background:rgba(184,151,58,0.1);color:var(--gold-light)}
+.dropdown a .dot{width:6px;height:6px;border-radius:50%;background:var(--gold);opacity:0.6;flex-shrink:0}
+
+/* HERO */
+#home{min-height:100vh;background:var(--navy);position:relative;display:flex;align-items:center;overflow:hidden;padding-top:64px}
+.hero-grid-bg{position:absolute;inset:0;background-image:linear-gradient(rgba(184,151,58,0.06) 1px,transparent 1px),linear-gradient(90deg,rgba(184,151,58,0.06) 1px,transparent 1px);background-size:60px 60px;opacity:0.6}
+.hero-decor{position:absolute;right:0;top:0;bottom:0;width:45%;background:linear-gradient(135deg,rgba(29,110,110,0.15) 0%,rgba(184,151,58,0.08) 100%);clip-path:polygon(15% 0,100% 0,100% 100%,0% 100%)}
+.hero-inner{max-width:1100px;margin:0 auto;padding:4rem 2rem;position:relative;z-index:2;width:100%}
+.hero-label{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:1.5rem;display:flex;align-items:center;gap:10px}
+.hero-label::before{content:'';display:block;width:32px;height:1px;background:var(--gold)}
+.hero-title{font-family:'Playfair Display',serif;font-size:clamp(32px,4vw,56px);font-weight:700;color:#fff;line-height:1.15;margin-bottom:1.25rem}
+.hero-title em{color:var(--gold-light);font-style:italic}
+.hero-subtitle{font-size:17px;color:rgba(255,255,255,0.65);margin-bottom:0.5rem;font-weight:300;letter-spacing:0.3px}
+.hero-affil{font-family:'JetBrains Mono',monospace;font-size:12px;color:rgba(255,255,255,0.45);margin-bottom:2.5rem;letter-spacing:0.5px}
+.hero-cta{display:flex;gap:12px;flex-wrap:wrap}
+.btn-primary{padding:13px 30px;background:var(--gold);color:var(--navy);font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:500;letter-spacing:1px;text-transform:uppercase;text-decoration:none;border-radius:3px;transition:background 0.2s;display:inline-block}
+.btn-primary:hover{background:var(--gold-light)}
+.btn-ghost{padding:13px 30px;border:1px solid rgba(255,255,255,0.25);color:rgba(255,255,255,0.7);font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:1px;text-transform:uppercase;text-decoration:none;border-radius:3px;transition:border-color 0.2s,color 0.2s;display:inline-block}
+.btn-ghost:hover{border-color:var(--gold);color:var(--gold-light)}
+
+/* INTRO SECTION */
+#intro{background:#fff;padding:96px 0}
+.intro-inner{max-width:1100px;margin:0 auto;padding:0 2rem}
+.section-eyebrow{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);display:flex;align-items:center;gap:10px;margin-bottom:1rem}
+.section-eyebrow::after{content:'';flex:1;height:1px;background:var(--border);max-width:60px}
+.section-title{font-family:'Playfair Display',serif;font-size:34px;font-weight:600;color:var(--navy);margin-bottom:2rem;line-height:1.25}
+.intro-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:4rem;align-items:start}
+.intro-body{font-size:16px;color:var(--text-muted);line-height:1.9;font-weight:300}
+.intro-body p{margin-bottom:1.25rem}
+.intro-body p:last-child{margin-bottom:0}
+.intro-body strong{color:var(--navy);font-weight:600}
+.intro-side{background:var(--cream);border:1px solid var(--border);border-left:3px solid var(--gold);border-radius:0 6px 6px 0;padding:2rem}
+.intro-side h4{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);margin-bottom:1.25rem}
+.intro-side ul{list-style:none}
+.intro-side li{font-size:14px;color:var(--text);padding:0.6rem 0;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px}
+.intro-side li:last-child{border-bottom:none}
+.intro-side li::before{content:'';width:6px;height:6px;background:var(--gold);border-radius:50%;flex-shrink:0}
+
+/* QUICK LINKS */
+#explore{background:var(--cream);padding:96px 0}
+.explore-inner{max-width:1100px;margin:0 auto;padding:0 2rem}
+.explore-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1.5rem;margin-top:2rem}
+.explore-card{background:#fff;border:1px solid var(--border);border-radius:8px;padding:2rem;text-decoration:none;display:block;transition:transform 0.2s,border-color 0.2s,box-shadow 0.2s;position:relative;overflow:hidden}
+.explore-card:hover{transform:translateY(-4px);border-color:var(--gold);box-shadow:0 12px 30px rgba(10,22,40,0.08)}
+.explore-num{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--gold);letter-spacing:1px;margin-bottom:1rem}
+.explore-card h3{font-family:'Playfair Display',serif;font-size:20px;font-weight:600;color:var(--navy);margin-bottom:0.5rem}
+.explore-card p{font-size:13px;color:var(--text-muted);font-weight:300;line-height:1.6}
+.explore-arrow{margin-top:1.25rem;display:inline-flex;align-items:center;gap:6px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.8px;color:var(--navy);transition:gap 0.2s}
+.explore-card:hover .explore-arrow{gap:12px;color:var(--gold)}
+.explore-arrow svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:2}
+
+/* FOOTER */
+footer{background:rgba(5,10,20,0.98);border-top:1px solid rgba(184,151,58,0.15);padding:2.5rem 0}
+.footer-inner{max-width:1100px;margin:0 auto;padding:0 2rem;display:flex;justify-content:space-between;align-items:center}
+.footer-left{font-family:'JetBrains Mono',monospace;font-size:11px;color:rgba(255,255,255,0.3);letter-spacing:0.5px;line-height:1.8}
+.footer-logo{font-family:'Playfair Display',serif;font-size:14px;color:var(--gold);letter-spacing:1px}
+
+@media(max-width:768px){
+  .intro-grid{grid-template-columns:1fr}
+  .hero-decor{display:none}
+  .nav-links{display:none}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <div class="logo-badge">BADA</div>
+      <span class="nav-logo-text">BADA LAB</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html" class="active">Home</a></li>
+      <li class="nav-item">
+        <a href="research.html">Research <span class="arrow"></span></a>
+        <div class="dropdown">
+          <a href="research-ic.html"><span class="dot"></span>IC Design</a>
+          <a href="research-soc.html"><span class="dot"></span>SoC 설계</a>
+          <a href="research-fpga.html"><span class="dot"></span>FPGA</a>
+          <a href="research-ai.html"><span class="dot"></span>Edge AI</a>
+        </div>
+      </li>
+      <li><a href="projects.html">Projects</a></li>
+      <li><a href="members.html">Members</a></li>
+      <li><a href="publications.html">Publications</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="home">
+  <div class="hero-grid-bg"></div>
+  <div class="hero-decor"></div>
+  <div class="hero-inner">
+    <div class="hero-label">국립목포대학교 반도체공학과</div>
+    <h1 class="hero-title">Bridging <em>AI</em> and<br>Digital Architecture<br>Laboratory</h1>
+    <p class="hero-subtitle">인공지능과 디지털 아키텍처의 경계를 잇다</p>
+    <p class="hero-affil">Mokpo National University · Dept. of Semiconductor Engineering</p>
+    <div class="hero-cta">
+      <a href="research.html" class="btn-primary">연구분야 보기</a>
+      <a href="contact.html" class="btn-ghost">연락하기</a>
+    </div>
+  </div>
+</section>
+
+<!-- INTRO -->
+<section id="intro">
+  <div class="intro-inner">
+    <div class="section-eyebrow">About BADA LAB</div>
+    <h2 class="section-title">연구실 소개</h2>
+    <div class="intro-grid">
+      <div class="intro-body">
+        <p><strong>BADA LAB(Bridging AI and Digital Architecture Laboratory)</strong>은 국립목포대학교 반도체공학과 소속 연구실로, 인공지능과 디지털 하드웨어 아키텍처를 잇는 연구를 수행합니다.</p>
+        <p>저희 연구실은 디지털 IC 설계(RTL, Synthesis, Place &amp; Route)부터 SoC 설계, FPGA 기반 프로토타이핑, 그리고 엣지 환경을 위한 AI 추론 가속기 설계에 이르기까지, 하드웨어 설계의 전 과정을 폭넓게 다룹니다.</p>
+        <p>특히 <strong>온디바이스 AI</strong>를 핵심 주제로 삼아, 센서 데이터를 실시간으로 처리하는 저전력·고효율 하드웨어를 연구하며, 자율주행 로봇과 같은 실증 플랫폼에 이를 적용하는 것을 목표로 하고 있습니다.</p>
+        <p>이론과 실제 구현의 균형을 중시하며, 학생 연구원들이 RTL 설계부터 칩 구현, FPGA 검증까지 직접 경험할 수 있는 연구 환경을 지향합니다.</p>
+      </div>
+      <div class="intro-side">
+        <h4>Research Focus</h4>
+        <ul>
+          <li>디지털 IC 설계</li>
+          <li>SoC 설계</li>
+          <li>FPGA 프로토타이핑</li>
+          <li>엣지 AI 추론 가속기</li>
+          <li>온디바이스 AI</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPLORE -->
+<section id="explore">
+  <div class="explore-inner">
+    <div class="section-eyebrow">Explore</div>
+    <h2 class="section-title">둘러보기</h2>
+    <div class="explore-grid">
+      <a href="research.html" class="explore-card">
+        <div class="explore-num">01</div>
+        <h3>Research</h3>
+        <p>디지털 IC, SoC, FPGA, 엣지 AI 연구분야 소개</p>
+        <span class="explore-arrow">자세히 <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+      </a>
+      <a href="projects.html" class="explore-card">
+        <div class="explore-num">02</div>
+        <h3>Projects</h3>
+        <p>연구실에서 수행 중인 프로젝트 목록</p>
+        <span class="explore-arrow">자세히 <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+      </a>
+      <a href="members.html" class="explore-card">
+        <div class="explore-num">03</div>
+        <h3>Members</h3>
+        <p>지도교수 및 학생 연구원 소개</p>
+        <span class="explore-arrow">자세히 <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+      </a>
+      <a href="publications.html" class="explore-card">
+        <div class="explore-num">04</div>
+        <h3>Publications</h3>
+        <p>논문 및 학술 출판물 목록</p>
+        <span class="explore-arrow">자세히 <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-left">
+      &copy; 2024 BADA LAB · Mokpo National University<br>
+      Dept. of Semiconductor Engineering
+    </div>
+    <div class="footer-logo">BADA LAB</div>
+  </div>
+</footer>
+
+</body>
+</html>
